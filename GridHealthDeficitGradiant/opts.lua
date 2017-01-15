@@ -124,12 +124,12 @@ module._opts = {
                     return module.db.profile.deficit_gradiant.threshold_percentage
                 end,
                 order = 5,
-                pattern = "^%s%d+%s*",
+                pattern = "^%s*%d+%s*",
                 get = function(t)
                     return module.db.profile.deficit_gradiant.threshold_absolute_value
                 end,
                 set = function(t, v)
-                    local numericValue = tonumber(strmatch("^%s(%d+)%s*"))
+                    local numericValue = tonumber(strmatch(v, "^%s*(%d+)%s*"))
                     module.db.profile.deficit_gradiant.threshold_absolute_value = numericValue
                     if not module.db.profile.deficit_gradiant.threshold_percentage then
                         module.db.profile.deficit_gradiant.threshold_health = numericValue
