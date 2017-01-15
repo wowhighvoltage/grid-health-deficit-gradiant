@@ -80,7 +80,7 @@ end
 
 function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth)
     local settings = module.db.profile.deficit_gradiant
-    local effectiveDeficit = min(maxHealth, incoming + currentHealth - maxHealth)
+    local effectiveDeficit = min(maxHealth, incoming + maxHealth - currentHealth)
     local processedText = ""
 
     local threshold = settings.threshold
