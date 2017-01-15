@@ -22,7 +22,7 @@ end
 
      
 function module:CalculateHSVColorAtPosition(color1, color2, position)
-    -- Calculate the color on a color gradiant between color1 and color2
+    -- Calculate the color on a color gradient between color1 and color2
     -- at a given postion between color1 and color2. Position is between
     -- 0 and 1, with 0 being color1 and 1 being color2. Returns a HSV value
     -- color.
