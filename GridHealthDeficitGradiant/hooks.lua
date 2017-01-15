@@ -15,7 +15,7 @@ function module:OnStatusEnable(status)
     self:RegisterEvent("UNIT_HEALTH", "UpdateUnit")
     self:RegisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
     self:RegisterEvent("UNIT_HEAL_PREDICTION", "UpdateUnit")
-    if module.db.profile.deficit_plus.always_show then 
+    if module.db.profile.deficit_gradiant.always_show then 
         self:RegisterEvent("UNIT_HEAL_PREDICTION", "UpdateUnit")
     end
     self:UpdateAllUnits()
@@ -27,7 +27,7 @@ function module:OnStatusDisable(status)
     self:UnregisterEvent("UNIT_HEALTH")
     self:UnregisterEvent("UNIT_MAXHEALTH")
     self:UnregisterEvent("UNIT_HEAL_PREDICTION")
-    if module.db.profile.deficit_plus.always_show then 
+    if module.db.profile.deficit_gradiant.always_show then 
         self:UnregisterEvent("UNIT_HEAL_PREDICTION")
     end
     self.core:SendStatusLostAllUnits(status)
@@ -53,7 +53,7 @@ function module:UpdateUnit(event, unit)
     end
 
     if UnitIsVisible(unit) and not UnitIsDeadOrGhost(unit) then
-        local settings = module.db.profile.deficit_plus
+        local settings = module.db.profile.deficit_gradiant
         local incoming = UnitGetIncomingHeals(unit) or 0
         local unitCurrentHealth = UnitHealth(unit)
         local unitMaxHealth = UnitHealthMax(unit)
@@ -74,7 +74,7 @@ end
 
 
 function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth)
-    local settings = module.db.profile.deficit_plus
+    local settings = module.db.profile.deficit_gradiant
     local effectiveDeficit = min(maxHealth, incoming + currentHealth - maxHealth)
     local threshold = settings.threshold
     local thresholdPercentage = settings.threshold_abs

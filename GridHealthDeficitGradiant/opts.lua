@@ -5,7 +5,7 @@ local module = GridHealthDeficitGradiant.statusModule
 
 
 module.defaultDB = {
-    deficit_plus = {
+    deficit_gradiant = {
         enable = false,
         priority = 50,
         color_full_hp = { r = 0, g = 255, b = 0, a = 1 },
@@ -25,10 +25,10 @@ module._opts = {
         name = "Ignore Self",
         desc = "Ignore heals cast by you.",
         get = function()
-            return module.db.profile.deficit_plus.ignore_self
+            return module.db.profile.deficit_gradiant.ignore_self
         end,
         set = function(_, v)
-            module.db.profile.deficit_plus.ignore_self = v
+            module.db.profile.deficit_gradiant.ignore_self = v
             module:UpdateAllUnits()
         end,
     },
@@ -37,10 +37,10 @@ module._opts = {
         name = "Always Display (requires UI reload)",
         desc = "Show status even when players are at full HP.",
         get = function()
-            return module.db.profile.deficit_plus.always_show
+            return module.db.profile.deficit_gradiant.always_show
         end,
         set = function(_, v)
-            module.db.profile.deficit_plus.always_show = v
+            module.db.profile.deficit_gradiant.always_show = v
             module:UpdateAllUnits()
         end,
     },
@@ -51,11 +51,11 @@ module._opts = {
         type = "color",
         hasAlpha = true,
         get = function(t)
-            local color = module.db.profile.deficit_plus.color_full_hp
+            local color = module.db.profile.deficit_gradiant.color_full_hp
             return color.r, color.g, color.b, color.a 
         end,
         set = function(t, r, g, b, a)
-            local color = module.db.profile.deficit_plus.color_full_hp
+            local color = module.db.profile.deficit_gradiant.color_full_hp
             color.r, color.g, color.b, color.a = r, g, b, a 
         end,
     },
@@ -66,11 +66,11 @@ module._opts = {
         type = "color",
         hasAlpha = true,
         get = function(t)
-            local color = module.db.profile.deficit_plus.color_threshold_hp
+            local color = module.db.profile.deficit_gradiant.color_threshold_hp
             return color.r, color.g, color.b, color.a 
         end,
         set = function(t, r, g, b, a)
-            local color = module.db.profile.deficit_plus.color_threshold_hp
+            local color = module.db.profile.deficit_gradiant.color_threshold_hp
             color.r, color.g, color.b, color.a = r, g, b, a 
         end,
     },
@@ -80,10 +80,10 @@ module._opts = {
         name = "Use Percentage Threshold",
         desc = "Use  a percetnage for the threshold",
         get = function()
-            return module.db.profile.deficit_plus.percentage_threshold
+            return module.db.profile.deficit_gradiant.percentage_threshold
         end,
         set = function(_, v)
-            module.db.profile.deficit_plus.percetange_threshold = v
+            module.db.profile.deficit_gradiant.percetange_threshold = v
             module:UpdateAllUnits()
         end,
     },
@@ -93,10 +93,10 @@ module._opts = {
         desc = "The threshold at which to change the indicators color.",
         type = "input",
         get = function(t)
-            return module.db.profile.deficit_plus.threshold_health
+            return module.db.profile.deficit_gradiant.threshold_health
         end,
         set = function(t, v)
-            module.db.profile.deficit_plus.threshold_health = tonumber(v)
+            module.db.profile.deficit_gradiant.threshold_health = tonumber(v)
         end
     }
 }
