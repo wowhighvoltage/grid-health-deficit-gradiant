@@ -1,13 +1,13 @@
 -- Defines a global addon object and relvant Grid module objects
 
 
-local statusModule = Grid:NewStatusModule("GridHealthDeficitGradiant")
-statusModule.menuName = "GridHealthDeficitGradiant"
+local statusModule = Grid:NewStatusModule("GridHealthDeficitGradient")
+statusModule.menuName = "GridHealthDeficitGradient"
 statusModule.options = false
 
 
-GridHealthDeficitGradiant = {
-    utils={},
-    statusModule=statusModule,
+GridHealthDeficitGradient = {
+    utils = {},
+    statusModule = statusModule,
 }
 

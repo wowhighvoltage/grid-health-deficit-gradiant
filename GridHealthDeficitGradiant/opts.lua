@@ -1,12 +1,12 @@
 -- Configuration inputs and defaults
 
 
-local module = GridHealthDeficitGradiant.statusModule
+local module = GridHealthDeficitGradient.statusModule
 
 
 module.defaultDB = {
-    deficit_gradiant = {
-        enable = false,
+    deficit_gradient = {
+        enable = true,
         priority = 50,
         color_full_hp = { r = 0, g = 255, b = 0, a = 1 },
         color_threshold_hp = { r = 255, g = 0, b = 0, a = 1 },
@@ -29,10 +29,10 @@ module._opts = {
         type = "toggle", width = "double",
         order = 101,
         get = function()
-            return module.db.profile.deficit_gradiant.ignore_self
+            return module.db.profile.deficit_gradient.ignore_self
         end,
         set = function(_, v)
-            module.db.profile.deficit_gradiant.ignore_self = v
+            module.db.profile.deficit_gradient.ignore_self = v
             module:UpdateAllUnits()
         end,
     },
@@ -42,10 +42,10 @@ module._opts = {
         type = "toggle", width = "double",
         order = 100,
         get = function()
-            return module.db.profile.deficit_gradiant.always_show
+            return module.db.profile.deficit_gradient.always_show
         end,
         set = function(_, v)
-            module.db.profile.deficit_gradiant.always_show = v
+            module.db.profile.deficit_gradient.always_show = v
             module:UpdateAllUnits()
         end,
     },
@@ -61,11 +61,11 @@ module._opts = {
                 order = 1,
                 hasAlpha = true,
                 get = function(t)
-                    local color = module.db.profile.deficit_gradiant.color_full_hp
+                    local color = module.db.profile.deficit_gradient.color_full_hp
                     return color.r, color.g, color.b, color.a 
                 end,
                 set = function(t, r, g, b, a)
-                    local color = module.db.profile.deficit_gradiant.color_full_hp
+                    local color = module.db.profile.deficit_gradient.color_full_hp
                     color.r, color.g, color.b, color.a = r, g, b, a 
                 end,
             },
@@ -75,11 +75,11 @@ module._opts = {
                 order = 2,
                 hasAlpha = true,
                 get = function(t)
-                    local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                    local color = module.db.profile.deficit_gradient.color_threshold_hp
                     return color.r, color.g, color.b, color.a 
                 end,
                 set = function(t, r, g, b, a)
-                    local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                    local color = module.db.profile.deficit_gradient.color_threshold_hp
                     color.r, color.g, color.b, color.a = r, g, b, a 
                 end,
             },
@@ -98,20 +98,20 @@ module._opts = {
                 width = "double",
                 order = 1,
                 get = function()
-                    return module.db.profile.deficit_gradiant.threshold_percentage
+                    return module.db.profile.deficit_gradient.threshold_percentage
                 end,
                 set = function(_, v)
-                    module.db.profile.deficit_gradiant.threshold_percentage = v
+                    module.db.profile.deficit_gradient.threshold_percentage = v
 
                     local newThreshold
                     local inputFields = module._opts.threshold.args
                     if v then
-                        newThreshold = module.db.profile.deficit_gradiant.threshold_percentage_value
+                        newThreshold = module.db.profile.deficit_gradient.threshold_percentage_value
                     else
-                        newThreshold = module.db.profile.deficit_gradiant.threshold_absolute_value
+                        newThreshold = module.db.profile.deficit_gradient.threshold_absolute_value
                     end
 
-                    module.db.profile.deficit_gradiant.threshold_health = newThreshold
+                    module.db.profile.deficit_gradient.threshold = newThreshold
                 end
             },
             abs = {
@@ -123,16 +123,16 @@ module._opts = {
                 bigStep = 100,
                 step = 1,
                 disabled = function()
-                    return module.db.profile.deficit_gradiant.threshold_percentage
+                    return module.db.profile.deficit_gradient.threshold_percentage
                 end,
                 order = 5,
                 get = function(t)
-                    return module.db.profile.deficit_gradiant.threshold_absolute_value
+                    return module.db.profile.deficit_gradient.threshold_absolute_value
                 end,
                 set = function(t, v)
-                    module.db.profile.deficit_gradiant.threshold_absolute_value = v
-                    if not module.db.profile.deficit_gradiant.threshold_percentage then
-                        module.db.profile.deficit_gradiant.threshold_health = v
+                    module.db.profile.deficit_gradient.threshold_absolute_value = v
+                    if not module.db.profile.deficit_gradient.threshold_percentage then
+                        module.db.profile.deficit_gradient.threshold = v
                     end
                 end
             },
@@ -144,15 +144,15 @@ module._opts = {
                 min = 0,
                 max = 1,
                 disabled = function()
-                    return not module.db.profile.deficit_gradiant.threshold_percentage
+                    return not module.db.profile.deficit_gradient.threshold_percentage
                 end,
                 get = function(t)
-                    return module.db.profile.deficit_gradiant.threshold_percentage_value
+                    return module.db.profile.deficit_gradient.threshold_percentage_value
                 end,
                 set = function(t, v)
-                    module.db.profile.deficit_gradiant.threshold_percentage_value = v
-                    if module.db.profile.deficit_gradiant.threshold_percentage then
-                        module.db.profile.deficit_gradiant.threshold_health = v
+                    module.db.profile.deficit_gradient.threshold_percentage_value = v
+                    if module.db.profile.deficit_gradient.threshold_percentage then
+                        module.db.profile.deficit_gradient.threshold = v
                     end
                 end
             }

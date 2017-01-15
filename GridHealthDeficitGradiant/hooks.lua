@@ -2,11 +2,12 @@
 
 
 local GridRoster = Grid:GetModule("GridRoster")
-local module = GridHealthDeficitGradiant.statusModule
+local module = GridHealthDeficitGradient.statusModule
 
 
-function module:PostInitialize()
-    self:RegisterStatus("deficit_gradiant", "Health deficit gradiant", module._opts, true)
+function module:OnInitialize()
+    self.super.OnInitialize(self)
+    self:RegisterStatus("deficit_gradient", "Health deficit gradient", module._opts, true)
 end
 
 
@@ -15,7 +16,7 @@ function module:OnStatusEnable(status)
     self:RegisterEvent("UNIT_HEALTH", "UpdateUnit")
     self:RegisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
     self:RegisterEvent("UNIT_HEAL_PREDICTION", "UpdateUnit")
-    if module.db.profile.deficit_gradiant.always_show then 
+    if module.db.profile.deficit_gradient.always_show then 
         self:RegisterEvent("UNIT_HEAL_PREDICTION", "UpdateUnit")
     end
     self:UpdateAllUnits()
@@ -27,7 +28,7 @@ function module:OnStatusDisable(status)
     self:UnregisterEvent("UNIT_HEALTH")
     self:UnregisterEvent("UNIT_MAXHEALTH")
     self:UnregisterEvent("UNIT_HEAL_PREDICTION")
-    if module.db.profile.deficit_gradiant.always_show then 
+    if module.db.profile.deficit_gradient.always_show then 
         self:UnregisterEvent("UNIT_HEAL_PREDICTION")
     end
     self.core:SendStatusLostAllUnits(status)
@@ -53,7 +54,7 @@ function module:UpdateUnit(event, unit)
     end
 
     if UnitIsVisible(unit) and not UnitIsDeadOrGhost(unit) then
-        local settings = module.db.profile.deficit_gradiant
+        local settings = module.db.profile.deficit_gradient
         local incoming = UnitGetIncomingHeals(unit) or 0
         local unitCurrentHealth = UnitHealth(unit)
         local unitMaxHealth = UnitHealthMax(unit)
@@ -69,24 +70,19 @@ function module:UpdateUnit(event, unit)
         end
     end
 
-    self.core:SendStatusLost(guid, "deficit_gradiant")
-end
-
-
-local function RgbTable(r, g, b, a)
-    return {r=r, g=g, b=b, a=a}
+    self.core:SendStatusLost(guid, "deficit_gradient")
 end
 
 
 function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth)
-    local settings = module.db.profile.deficit_gradiant
+    local settings = module.db.profile.deficit_gradient
     local effectiveDeficit = min(maxHealth, incoming + maxHealth - currentHealth)
     local processedText = ""
 
     local threshold = settings.threshold
     local realThreshold = settings.threshold_percentage and (threshold * maxHealth) or threshold
 
-    local colorMode = GridHealthDeficitGradiant.utils.color:CalculateRGBColorAtPosition(
+    local colorMode = GridHealthDeficitGradient.utils.color:CalculateRGBColorAtPosition(
         settings.color_full_hp,
         settings.color_threshold_hp,
         min(1, effectiveDeficit / realThreshold)
@@ -108,7 +104,7 @@ function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth
         processedText = "0"
     end
 
-    self.core:SendStatusGained(guid, "deficit_gradiant",
+    self.core:SendStatusGained(guid, "deficit_gradient",
         settings.priority,
         settings.range,
         colorMode,
