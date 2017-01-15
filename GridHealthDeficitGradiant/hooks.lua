@@ -73,6 +73,11 @@ function module:UpdateUnit(event, unit)
 end
 
 
+local function RgbTable(r, g, b, a)
+    return {r=r, g=g, b=b, a=a}
+end
+
+
 function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth)
     local settings = module.db.profile.deficit_gradiant
     local effectiveDeficit = min(maxHealth, incoming + currentHealth - maxHealth)
@@ -82,14 +87,16 @@ function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth
     local realThreshold = settings.threshold_percentage and (threshold * maxHealth) or threshold
 
     local colorMode = GridHealthDeficitGradiant.utils.color.CalculateRGBColorAtPosition(
-        settings.full_health_color,
-        settings.threshold_health_color,
+        RgbTable(settings.full_health_color),
+        RgbTable(settings.threshold_health_color),
+        {r = r1, g = g1, b = b1, a = a1},
+        {r = r2, g = g2, b = b2, a = a2},
         min(1, effectiveDeficit / realThreshold)
     )
 
-    if math.abs(healthFromMax) > 9999 then
+    if math.abs(effectiveDeficit) > 9999 then
         processedText = format("%.0fk", healthFromMax / 1000)
-    elseif math.abs(healthFromMax) > 999 then
+    elseif math.abs(effectiveDeficit) 999 then
         processedText = format("%.1fk", healthFromMax / 1000)
     else
         processedText = healthFromMax
