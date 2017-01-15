@@ -8,8 +8,8 @@ module.defaultDB = {
     deficit_gradient = {
         enable = true,
         priority = 50,
-        color_full_hp = { r = 0, g = 255, b = 0, a = 1 },
-        color_threshold_hp = { r = 255, g = 0, b = 0, a = 1 },
+        color_full_hp = { r = 0, g = 1, b = 0, a = 1 },
+        color_threshold_hp = { r = 1, g = 0, b = 0, a = 1 },
         icon = nil,
         ignore_self = false,
         always_show = false,
