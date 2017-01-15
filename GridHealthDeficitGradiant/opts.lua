@@ -21,9 +21,6 @@ module.defaultDB = {
 }
 
 
-local function validateThreshold,
-
-
 module._opts = {
     ignoreSelf = {
         name = "Ignore Self",
