@@ -81,7 +81,7 @@ module._opts = {
                 color.r, color.g, color.b, color.a = r, g, b, a 
             end,
         },
-    }
+    },
     threshold = {
         name = "Threshold",
         desc = "The threshold at which to change the indicators color.",
