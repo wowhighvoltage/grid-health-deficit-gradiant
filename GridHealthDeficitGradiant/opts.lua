@@ -120,7 +120,8 @@ module._opts = {
                 min = 0,
                 max = 1000000000,
                 softMax = 30000,
-                step = 100,
+                bigStep = 100,
+                step = 1,
                 disabled = function()
                     return module.db.profile.deficit_gradiant.threshold_percentage
                 end,
