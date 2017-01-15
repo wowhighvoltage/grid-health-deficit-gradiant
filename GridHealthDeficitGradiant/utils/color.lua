@@ -9,7 +9,7 @@ local function ConvertColorRgbToHsv(color)
     -- Converts  a color from RGB to HSV
     CS:SetColorRGB(color.r, color.g, color.b)
     local h, s, v = CS:GetColorHSV()
-    return {h=h, s=s, v=v}
+    return {h=h, s=s, v=v, a=color.a}
 end
 
      
@@ -17,7 +17,7 @@ local function ConvertColorHsvToRgb(color)
     -- Converts  a color from HSV to RGB
     CS:SetColorHSV(color.h, color.s, color.v)
     local r, g, b = CS:GetColorRGB()
-    return {r=r, g=g, b=b}
+    return {r=r, g=g, b=b, a=color.a}
 end
 
      
@@ -45,6 +45,8 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
 
     colorAtPos.s = color1.s - (color1.s - color2.s) * position
     colorAtPos.v = color1.v - (color1.v - color2.v) * position
+
+    colorAtPost.a = abs(color1.a - color2.a) * position
 
     return colorAtPos
 end

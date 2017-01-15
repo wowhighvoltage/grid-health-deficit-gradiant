@@ -6,7 +6,7 @@ local module = GridHealthDeficitGradiant.statusModule
 
 
 function module:PostInitialize()
-    self:RegisterStatus("deficit_gradiant", "Health Deficit Color Gradiant", module._opts, true)
+    self:RegisterStatus("deficit_gradiant", "Health deficit gradiant", module._opts, true)
 end
 
 
@@ -86,30 +86,28 @@ function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth
     local threshold = settings.threshold
     local realThreshold = settings.threshold_percentage and (threshold * maxHealth) or threshold
 
-    local colorMode = GridHealthDeficitGradiant.utils.color.CalculateRGBColorAtPosition(
+    local colorMode = GridHealthDeficitGradiant.utils.color:CalculateRGBColorAtPosition(
         RgbTable(settings.full_health_color),
         RgbTable(settings.threshold_health_color),
-        {r = r1, g = g1, b = b1, a = a1},
-        {r = r2, g = g2, b = b2, a = a2},
         min(1, effectiveDeficit / realThreshold)
     )
 
     if math.abs(effectiveDeficit) > 9999 then
-        processedText = format("%.0fk", healthFromMax / 1000)
-    elseif math.abs(effectiveDeficit) 999 then
-        processedText = format("%.1fk", healthFromMax / 1000)
+        processedText = format("%.0fk", effectiveDeficit / 1000)
+    elseif math.abs(effectiveDeficit) > 999 then
+        processedText = format("%.1fk", effectiveDeficit / 1000)
     else
-        processedText = healthFromMax
+        processedText = effectiveDeficit
     end
-    
-    if (healthFromMax > 0) then
+
+    if (effectiveDeficit > 0) then
         processedText =  "+" .. processedText
     end
-    
+
     if (processedText == 0) then 
         processedText = "0"
     end
-        
+
     self.core:SendStatusGained(guid, "deficit_gradiant",
         settings.priority,
         settings.range,
