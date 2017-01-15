@@ -59,4 +59,4 @@ function module:CalculateRGBColorAtPosition(color1, color2, position)
 end
 
 
-GridHealthDeficitGradiant.utils.color = module
+GridHealthDeficitGradient.utils.color = module
