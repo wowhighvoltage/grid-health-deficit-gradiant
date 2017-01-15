@@ -50,16 +50,15 @@ module._opts = {
         end,
     },
     colors = {
-        name = "Colors",
+        name = "Color at...",
         type = "group",
         inline = true,
         order = 110,
         args = {
             color1 = {
-                name = "Full health color",
-                desc = "Use this color when a player is at full health.",
+                name = "full health",
                 type = "color",
-                order = 110,
+                order = 1,
                 hasAlpha = true,
                 get = function(t)
                     local color = module.db.profile.deficit_gradiant.color_full_hp
@@ -71,10 +70,9 @@ module._opts = {
                 end,
             },
             color2 = {
-                name = "Threshold health color",
-                desc = "Use this color when a player is at the health threshold.",
+                name = "threshold health",
                 type = "color",
-                order = 111,
+                order = 2,
                 hasAlpha = true,
                 get = function(t)
                     local color = module.db.profile.deficit_gradiant.color_threshold_hp
@@ -88,14 +86,13 @@ module._opts = {
         },
     },
     threshold = {
-        name = "Threshold",
-        desc = "The threshold at which to change the indicators color.",
+        name = "Deficit threshold",
         type = "group",
         inline = true,
         order = 120,
         args = {
             is_percentage = {
-                name = "Use Percentage Threshold",
+                name = "Use percentage",
                 desc = "Use  a percentage for the threshold",
                 type = "toggle",
                 width = "double",
@@ -118,18 +115,21 @@ module._opts = {
                 end
             },
             abs = {
-                name = "Absolute Value",
-                type = "input",
+                name = "",
+                type = "range",
+                min = 0,
+                max = 1000000000,
+                softMax = 30000,
+                step = 100,
                 disabled = function()
                     return module.db.profile.deficit_gradiant.threshold_percentage
                 end,
                 order = 5,
-                pattern = "^%s*%d+%s*",
                 get = function(t)
                     return module.db.profile.deficit_gradiant.threshold_absolute_value
                 end,
                 set = function(t, v)
-                    local numericValue = tonumber(strmatch(v, "^%s*(%d+)%s*"))
+                    local numericValue = tonumber(strmattch(v, "^%s*(%d+)%s*$"))
                     module.db.profile.deficit_gradiant.threshold_absolute_value = numericValue
                     if not module.db.profile.deficit_gradiant.threshold_percentage then
                         module.db.profile.deficit_gradiant.threshold_health = numericValue
@@ -137,7 +137,7 @@ module._opts = {
                 end
             },
             percentage = {
-                name = "Percetage Value",
+                name = "",
                 type = "range",
                 order = 3,
                 isPercent = true,
