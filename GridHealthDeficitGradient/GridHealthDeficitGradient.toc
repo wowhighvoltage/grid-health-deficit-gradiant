@@ -1,5 +1,5 @@
 ## Interface: 70000
-## Title: Grid Health Deficit Gradiant
+## Title: Grid Health Deficit Gradient
 ## Author: High Voltage
 ## Version: 0.1
 ## Dependencies: Grid
