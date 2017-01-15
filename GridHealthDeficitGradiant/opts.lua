@@ -51,35 +51,37 @@ module._opts = {
     colors = {
         name = "Colors",
         type = "group",
-        color1 = {
-            name = "Full health color",
-            desc = "Use this color when a player is at full health.",
-            type = "color",
-            order = 110,
-            hasAlpha = true,
-            get = function(t)
-                local color = module.db.profile.deficit_gradiant.color_full_hp
-                return color.r, color.g, color.b, color.a 
-            end,
-            set = function(t, r, g, b, a)
-              local color = module.db.profile.deficit_gradiant.color_full_hp
-              color.r, color.g, color.b, color.a = r, g, b, a 
-            end,
-        },
-        color2 = {
-            name = "Threshold health color",
-            desc = "Use this color when a player is at the health threshold.",
-            type = "color",
-            order = 111,
-            hasAlpha = true,
-            get = function(t)
-                local color = module.db.profile.deficit_gradiant.color_threshold_hp
-                return color.r, color.g, color.b, color.a 
-            end,
-            set = function(t, r, g, b, a)
-                local color = module.db.profile.deficit_gradiant.color_threshold_hp
-                color.r, color.g, color.b, color.a = r, g, b, a 
-            end,
+        args = {
+            color1 = {
+                name = "Full health color",
+                desc = "Use this color when a player is at full health.",
+                type = "color",
+                order = 110,
+                hasAlpha = true,
+                get = function(t)
+                    local color = module.db.profile.deficit_gradiant.color_full_hp
+                    return color.r, color.g, color.b, color.a 
+                end,
+                set = function(t, r, g, b, a)
+                    local color = module.db.profile.deficit_gradiant.color_full_hp
+                    color.r, color.g, color.b, color.a = r, g, b, a 
+                end,
+            },
+            color2 = {
+                name = "Threshold health color",
+                desc = "Use this color when a player is at the health threshold.",
+                type = "color",
+                order = 111,
+                hasAlpha = true,
+                get = function(t)
+                    local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                    return color.r, color.g, color.b, color.a 
+                end,
+                set = function(t, r, g, b, a)
+                    local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                    color.r, color.g, color.b, color.a = r, g, b, a 
+                end,
+            },
         },
     },
     threshold = {
@@ -100,14 +102,15 @@ module._opts = {
                     module.db.profile.deficit_gradiant.threshold_percentage = v
 
                     local newThreshold
+                    local inputFields = module._opts.thresold.args
                     if v then
                         newThreshold = module.db.profile.deficit_gradiant.threshold_percentage_value
-                        module._opts.abs:SetDisable(true)
-                        module._opts.percentage:SetDisable(false)
+                        inputFields.abs:SetDisabled(true)
+                        inputFields.percentage:SetDisabled(false)
                     else
                         newThreshold = module.db.profile.deficit_gradiant.threshold_absolute_value
-                        module._opts.abs:SetDisable(false)
-                        module._opts.percentage:SetDisable(true)
+                        inputFields.abs:SetDisabled(false)
+                        inputFields.percentage:SetDisabled(true)
                     end
 
                     module.db.profile.deficit_gradiant.threshold_health = newThreshold
