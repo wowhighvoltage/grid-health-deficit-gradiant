@@ -51,7 +51,7 @@ module._opts = {
         type = "color",
         hasAlpha = true,
         get = function(t)
-            local color = module.db.profile.deficit_plus.color_full_hp,
+            local color = module.db.profile.deficit_plus.color_full_hp
             return color.r, color.g, color.b, color.a 
         end,
         set = function(t, r, g, b, a)
