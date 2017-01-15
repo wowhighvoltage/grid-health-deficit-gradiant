@@ -2,7 +2,7 @@
 
 
 local GridRoster = Grid:GetModule("GridRoster")
-local module = GridHealthDeficitGradiant:statusModule
+local module = GridHealthDeficitGradiant.statusModule
 
 
 function module:PostInitialize()
