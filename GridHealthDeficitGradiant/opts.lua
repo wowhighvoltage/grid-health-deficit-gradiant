@@ -14,7 +14,7 @@ module.defaultDB = {
         ignore_self = false,
         always_show = false,
         threshold_percentage = true,
-    },
+    }
 }
 
 
