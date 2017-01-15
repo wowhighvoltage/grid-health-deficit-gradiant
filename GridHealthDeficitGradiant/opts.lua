@@ -136,7 +136,7 @@ module._opts = {
                 order = 4,
                 isPercent = true,
                 max = 100,
-                min = 0
+                min = 0,
                 disabled = function()
                     return module.db.profile.deficit_gradiant.threshold_percetange
                 end,
