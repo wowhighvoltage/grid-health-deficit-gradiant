@@ -28,8 +28,8 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
     -- color.
     local colorAtPos = {}
 
-    color1HSV = color1.r and self:RGB2HSV(color1) or color1
-    color2HSV = color2.r and self:RGB2HSV(color2) or color2
+    colorHSV1 = color1.r and self:RGB2HSV(color1) or color1
+    colorHSV2 = color2.r and self:RGB2HSV(color2) or color2
 
     local hue1 = colorHSV1.h % 360
     local hue2 = colorHSV2.h % 360
