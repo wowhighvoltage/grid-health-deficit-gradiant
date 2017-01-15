@@ -76,24 +76,15 @@ end
 function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth)
     local settings = module.db.profile.deficit_gradiant
     local effectiveDeficit = min(maxHealth, incoming + currentHealth - maxHealth)
-    local threshold = settings.threshold
-    local thresholdPercentage = settings.threshold_abs
-    local smudgePosition
     local processedText = ""
 
-    if (
-        (not thresholdPercentage and effectiveDeficit > threshold) or
-        (thresholdPercentage and (effectiveDeficit / maxHealth) > threshold)
-    ) then
-        smudgePosition = effectiveDeficit / threshold
-    else
-        smudgePosition = 1
-    end
+    local threshold = settings.threshold
+    local realThreshold = settings.threshold_percentage and (threshold * maxHealth) or threshold
 
-    local colorMode =  GridHealthDeficitGradiant.utils.color.CalculateRGBColorAtPosition(
+    local colorMode = GridHealthDeficitGradiant.utils.color.CalculateRGBColorAtPosition(
         settings.full_health_color,
         settings.threshold_health_color,
-        smudgePosition
+        min(1, effectiveDeficit / realThreshold)
     )
 
     if math.abs(healthFromMax) > 9999 then

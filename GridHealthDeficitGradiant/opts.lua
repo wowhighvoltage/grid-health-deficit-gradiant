@@ -82,10 +82,10 @@ module._opts = {
         type = "toggle", width = "double",
         order = 120,
         get = function()
-            return module.db.profile.deficit_gradiant.percentage_threshold
+            return module.db.profile.deficit_gradiant.threshold_percentage
         end,
         set = function(_, v)
-            module.db.profile.deficit_gradiant.percetange_threshold = v
+            module.db.profile.deficit_gradiant.threshold_percentage = v
             module:UpdateAllUnits()
         end,
     },
