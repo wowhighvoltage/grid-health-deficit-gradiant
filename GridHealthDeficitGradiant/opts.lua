@@ -22,6 +22,7 @@ module.defaultDB = {
 
 
 module._opts = {
+    color = false,
     ignoreSelf = {
         name = "Ignore Self",
         desc = "Ignore heals cast by you.",
