@@ -25,7 +25,7 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
     -- Calculate the color on a color gradiant between color1 and color2
     -- at a given postion between color1 and color2. Position is between
     -- 0 and 1, with 0 being color1 and 1 being color2. Uses HSV values.
-    local color = {}
+    local colorAtPos = {}
     if abs(color1.h - color2.h) > 180 then
         local angle = (360 - abs(color1.h - color2.h)) * position
         if color1.h < color2.h then
