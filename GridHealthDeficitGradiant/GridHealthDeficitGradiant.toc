@@ -1,0 +1,13 @@
+## Interface: 70000
+## Title: Grid Health Deficit Gradiant
+## Author: High Voltage
+## Version: 0.1
+## Dependencies: Grid
+## X-Website: https://github.com/wowhighvoltage/grid-health-deficit-gradiant
+## X-Category: Library
+## X-License: GPL3
+
+base.lua
+utils/color.lua
+opts.lua
+hooks.lua
