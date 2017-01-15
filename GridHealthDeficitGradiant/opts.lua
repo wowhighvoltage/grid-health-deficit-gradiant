@@ -48,36 +48,40 @@ module._opts = {
             module:UpdateAllUnits()
         end,
     },
-    color1 = {
-        name = "Full health color",
-        desc = "Use this color when a player is at full health.",
-        type = "color",
-        order = 110,
-        hasAlpha = true,
-        get = function(t)
-            local color = module.db.profile.deficit_gradiant.color_full_hp
-            return color.r, color.g, color.b, color.a 
-        end,
-        set = function(t, r, g, b, a)
-            local color = module.db.profile.deficit_gradiant.color_full_hp
-            color.r, color.g, color.b, color.a = r, g, b, a 
-        end,
-    },
-    color2 = {
-        name = "Threshold health color",
-        desc = "Use this color when a player is at the health threshold.",
-        type = "color",
-        order = 111,
-        hasAlpha = true,
-        get = function(t)
-            local color = module.db.profile.deficit_gradiant.color_threshold_hp
-            return color.r, color.g, color.b, color.a 
-        end,
-        set = function(t, r, g, b, a)
-            local color = module.db.profile.deficit_gradiant.color_threshold_hp
-            color.r, color.g, color.b, color.a = r, g, b, a 
-        end,
-    },
+    colors = {
+        name = "Colors",
+        type = "group",
+        color1 = {
+            name = "Full health color",
+            desc = "Use this color when a player is at full health.",
+            type = "color",
+            order = 110,
+            hasAlpha = true,
+            get = function(t)
+                local color = module.db.profile.deficit_gradiant.color_full_hp
+                return color.r, color.g, color.b, color.a 
+            end,
+            set = function(t, r, g, b, a)
+              local color = module.db.profile.deficit_gradiant.color_full_hp
+              color.r, color.g, color.b, color.a = r, g, b, a 
+            end,
+        },
+        color2 = {
+            name = "Threshold health color",
+            desc = "Use this color when a player is at the health threshold.",
+            type = "color",
+            order = 111,
+            hasAlpha = true,
+            get = function(t)
+                local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                return color.r, color.g, color.b, color.a 
+            end,
+            set = function(t, r, g, b, a)
+                local color = module.db.profile.deficit_gradiant.color_threshold_hp
+                color.r, color.g, color.b, color.a = r, g, b, a 
+            end,
+        },
+    }
     threshold = {
         name = "Threshold",
         desc = "The threshold at which to change the indicators color.",
@@ -98,19 +102,23 @@ module._opts = {
                     local newThreshold
                     if v then
                         newThreshold = module.db.profile.deficit_gradiant.threshold_percentage_value
+                        module._opts.abs:SetDisable(true)
+                        module._opts.percentage:SetDisable(false)
                     else
                         newThreshold = module.db.profile.deficit_gradiant.threshold_absolute_value
+                        module._opts.abs:SetDisable(false)
+                        module._opts.percentage:SetDisable(true)
                     end
 
                     module.db.profile.deficit_gradiant.threshold_health = newThreshold
                 end
-            }
+            },
             abs = {
                 name = "Absolute Value",
                 type = "input",
                 disabled = function()
                   return not module.db.profile.deficit_gradiant.threshold_percetange
-                end
+                end,
                 order = 2,
                 pattern = "^%s%d+%s*",
                 get = function(t)
@@ -125,13 +133,13 @@ module._opts = {
             percentage = {
                 name = "Percetage Value",
                 type = "range",
+                order = 4,
                 isPercent = true,
                 max = 100,
                 min = 0
                 disabled = function()
                     return module.db.profile.deficit_gradiant.threshold_percetange
-                end
-                order = 4,
+                end,
                 get = function(t)
                     return module.db.profile.deficit_gradiant.threshold_percentage_value
                 end,
