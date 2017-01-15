@@ -129,10 +129,9 @@ module._opts = {
                     return module.db.profile.deficit_gradiant.threshold_absolute_value
                 end,
                 set = function(t, v)
-                    local numericValue = tonumber(strmattch(v, "^%s*(%d+)%s*$"))
-                    module.db.profile.deficit_gradiant.threshold_absolute_value = numericValue
+                    module.db.profile.deficit_gradiant.threshold_absolute_value = v
                     if not module.db.profile.deficit_gradiant.threshold_percentage then
-                        module.db.profile.deficit_gradiant.threshold_health = numericValue
+                        module.db.profile.deficit_gradiant.threshold_health = v
                     end
                 end
             },
