@@ -1,7 +1,7 @@
 -- Configuration inputs and defaults
 
 
-local module = GridHealthDeficitGradiant:statusModule
+local module = GridHealthDeficitGradiant.statusModule
 
 
 module.defaultDB = {
