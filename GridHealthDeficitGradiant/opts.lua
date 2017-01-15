@@ -96,7 +96,7 @@ module._opts = {
         args = {
             is_percentage = {
                 name = "Use Percentage Threshold",
-                desc = "Use  a percetnage for the threshold",
+                desc = "Use  a percentage for the threshold",
                 type = "toggle",
                 width = "double",
                 order = 1,
@@ -121,9 +121,9 @@ module._opts = {
                 name = "Absolute Value",
                 type = "input",
                 disabled = function()
-                    return not module.db.profile.deficit_gradiant.threshold_percetange
+                    return module.db.profile.deficit_gradiant.threshold_percentage
                 end,
-                order = 2,
+                order = 5,
                 pattern = "^%s%d+%s*",
                 get = function(t)
                     return module.db.profile.deficit_gradiant.threshold_absolute_value
@@ -139,12 +139,12 @@ module._opts = {
             percentage = {
                 name = "Percetage Value",
                 type = "range",
-                order = 4,
+                order = 3,
                 isPercent = true,
                 min = 0,
                 max = 1,
                 disabled = function()
-                    return module.db.profile.deficit_gradiant.threshold_percetange
+                    return not module.db.profile.deficit_gradiant.threshold_percentage
                 end,
                 get = function(t)
                     return module.db.profile.deficit_gradiant.threshold_percentage_value
