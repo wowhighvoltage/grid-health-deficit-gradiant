@@ -94,7 +94,7 @@ module._opts = {
         type = "input",
         get = function(t)
             return module.db.profile.deficit_plus.threshold_health
-        end
+        end,
         set = function(t, v)
             module.db.profile.deficit_plus.threshold_health = tonumber(v)
         end
