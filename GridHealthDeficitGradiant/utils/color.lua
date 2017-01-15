@@ -54,7 +54,7 @@ function module:CalculateRGBColorAtPosition(color1, color2, position)
     -- Same as CalculateHSVColorAtPosition but uses RBG values
     local hsvColor1 = ConvertColorHsvToRgb(color1)
     local hsvColor2 = ConvertColorHsvToRgb(color2)
-    local hsvColorAtPositon = CalculateHSVColorAtPosition(hsvColor1, hsvColor2, position)
+    local hsvColorAtPosition = CalculateHSVColorAtPosition(hsvColor1, hsvColor2, position)
     return ConvertColorHsvToRgb(hsvColorAtPosition)
 end
 
