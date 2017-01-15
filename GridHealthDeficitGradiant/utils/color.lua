@@ -45,7 +45,7 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
     colorAtPos.h = (hue1 + direction * floor(hueDiff * position)) % 360
 
     for _, v in pairs({'s', 'v', 'a'}) do
-        colorAtPos[k] = colorHSV1[k] - (colorHSV1[k] - colorHSV2[k]) * position
+        colorAtPos[v] = colorHSV1[v] - (colorHSV1[v] - colorHSV2[v]) * position
     end
 
     return colorAtPos
