@@ -26,27 +26,23 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
     -- at a given postion between color1 and color2. Position is between
     -- 0 and 1, with 0 being color1 and 1 being color2. Uses HSV values.
     local colorAtPos = {}
-    if abs(color1.h - color2.h) > 180 then
-        local angle = (360 - abs(color1.h - color2.h)) * position
-        if color1.h < color2.h then
-            colorAtPos.h = floor(color1.h - angle)
-            if colorAtPos.h < 0 then
-                colorAtPos.h = colorAtPos.h + 360
-            end
-        else
-            colorAtPos.h = floor(color1.h + angle)
-            if colorAtPos.h > 360 then
-                colorAtPos.h = colorAtPos.h - 360
-            end
-        end
-    else
-        colorAtPos.h = floor(color1.h - (color1.h - color2.h) * position)
-    end    
 
-    colorAtPos.s = color1.s - (color1.s - color2.s) * position
-    colorAtPos.v = color1.v - (color1.v - color2.v) * position
+    local hue1 = color1.h % 360
+    local hue2 = color2.h % 360
 
-    colorAtPost.a = abs(color1.a - color2.a) * position
+    local direction = hue1 < hue2 and 1 or -1
+    local hueDiff = abs(hue1 - hue2)
+
+    if hueDiff > 180 then
+        hueDiff = 360 - diff
+        direction = -1 * direction
+    end
+
+    colorAtPos.h = hue1 + direction * floor(hueDiff * position)
+
+    for _, v in pairs({'s', 'v', 'a'}) do
+        colorAtPos[k] = color1[k] - (color1[k] - color2[k]) * position
+    end
 
     return colorAtPos
 end

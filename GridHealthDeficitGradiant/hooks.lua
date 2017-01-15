@@ -87,8 +87,8 @@ function module:SendIncomingHealsStatus(guid, incoming, currentHealth, maxHealth
     local realThreshold = settings.threshold_percentage and (threshold * maxHealth) or threshold
 
     local colorMode = GridHealthDeficitGradiant.utils.color:CalculateRGBColorAtPosition(
-        RgbTable(settings.full_health_color),
-        RgbTable(settings.threshold_health_color),
+        settings.color_full_hp,
+        settings.color_threshold_hp,
         min(1, effectiveDeficit / realThreshold)
     )
 
