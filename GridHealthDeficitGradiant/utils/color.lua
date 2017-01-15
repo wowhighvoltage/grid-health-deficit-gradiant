@@ -31,16 +31,16 @@ function module:CalculateHSVColorAtPosition(color1, color2, position)
         if color1.h < color2.h then
             colorAtPos.h = floor(color1.h - angle)
             if colorAtPos.h < 0 then
-                colorAtPost.h = colorAtPost.h + 360
+                colorAtPos.h = colorAtPos.h + 360
             end
         else
             colorAtPos.h = floor(color1.h + angle)
-            if colorAtPost.h > 360 then
-                colorAtPost.h = colorAtPost.h - 360
+            if colorAtPos.h > 360 then
+                colorAtPos.h = colorAtPos.h - 360
             end
         end
     else
-        colorAtPost.h = floor(color1.h - (color1.h - color2.h) * position)
+        colorAtPos.h = floor(color1.h - (color1.h - color2.h) * position)
     end    
 
     colorAtPos.s = color1.s - (color1.s - color2.s) * position
@@ -52,9 +52,9 @@ end
      
 function module:CalculateRGBColorAtPosition(color1, color2, position)
     -- Same as CalculateHSVColorAtPosition but uses RBG values
-    local hsvColor1 = ConvertColorHsvToRgb(color1)
-    local hsvColor2 = ConvertColorHsvToRgb(color2)
-    local hsvColorAtPosition = CalculateHSVColorAtPosition(hsvColor1, hsvColor2, position)
+    local hsvColor1 = ConvertColorRgbToHsv(color1)
+    local hsvColor2 = ConvertColorRgbToHsv(color2)
+    local hsvColorAtPosition = self:CalculateHSVColorAtPosition(hsvColor1, hsvColor2, position)
     return ConvertColorHsvToRgb(hsvColorAtPosition)
 end
 
