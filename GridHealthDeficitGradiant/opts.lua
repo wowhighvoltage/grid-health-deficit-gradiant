@@ -51,6 +51,7 @@ module._opts = {
     colors = {
         name = "Colors",
         type = "group",
+        inline = true,
         args = {
             color1 = {
                 name = "Full health color",
@@ -88,6 +89,7 @@ module._opts = {
         name = "Threshold",
         desc = "The threshold at which to change the indicators color.",
         type = "group",
+        inline = true,
         args = {
             is_percentage = {
                 name = "Use Percentage Threshold",
@@ -105,12 +107,8 @@ module._opts = {
                     local inputFields = module._opts.thresold.args
                     if v then
                         newThreshold = module.db.profile.deficit_gradiant.threshold_percentage_value
-                        inputFields.abs:SetDisabled(true)
-                        inputFields.percentage:SetDisabled(false)
                     else
                         newThreshold = module.db.profile.deficit_gradiant.threshold_absolute_value
-                        inputFields.abs:SetDisabled(false)
-                        inputFields.percentage:SetDisabled(true)
                     end
 
                     module.db.profile.deficit_gradiant.threshold_health = newThreshold
@@ -120,17 +118,19 @@ module._opts = {
                 name = "Absolute Value",
                 type = "input",
                 disabled = function()
-                  return not module.db.profile.deficit_gradiant.threshold_percetange
+                    return not module.db.profile.deficit_gradiant.threshold_percetange
                 end,
                 order = 2,
                 pattern = "^%s%d+%s*",
                 get = function(t)
-                  return module.db.profile.deficit_gradiant.threshold_absolute_value
+                    return module.db.profile.deficit_gradiant.threshold_absolute_value
                 end,
                 set = function(t, v)
-                  local numericValue = tonumber(strmatch("^%s(%d+)%s*"))
-                  module.db.profile.deficit_gradiant.threshold_health = numericValue
-                  module.db.profile.deficit_gradiant.threshold_absolute_value = numericValue
+                    local numericValue = tonumber(strmatch("^%s(%d+)%s*"))
+                    module.db.profile.deficit_gradiant.threshold_absolute_value = numericValue
+                    if not module.db.profile.deficit_gradiant.threshold_percentage then
+                        module.db.profile.deficit_gradiant.threshold_health = numericValue
+                    end
                 end
             },
             percentage = {
@@ -147,7 +147,10 @@ module._opts = {
                     return module.db.profile.deficit_gradiant.threshold_percentage_value
                 end,
                 set = function(t, v)
-                    module.db.profile.deficit_gradiant.threshold_absolute_value = v
+                    module.db.profile.deficit_gradiant.threshold_percentage_value = v
+                    if module.db.profile.deficit_gradiant.threshold_percentage then
+                        module.db.profile.deficit_gradiant.threshold_health = v
+                    end
                 end
             }
         }
