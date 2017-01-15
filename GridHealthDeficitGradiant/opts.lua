@@ -105,7 +105,7 @@ module._opts = {
                     module.db.profile.deficit_gradiant.threshold_percentage = v
 
                     local newThreshold
-                    local inputFields = module._opts.thresold.args
+                    local inputFields = module._opts.threshold.args
                     if v then
                         newThreshold = module.db.profile.deficit_gradiant.threshold_percentage_value
                     else
