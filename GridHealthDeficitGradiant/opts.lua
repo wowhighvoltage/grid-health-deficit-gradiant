@@ -21,9 +21,10 @@ module.defaultDB = {
 module._opts = {
     color = false,
     ignoreSelf = {
-        type = "toggle", width = "double",
         name = "Ignore Self",
         desc = "Ignore heals cast by you.",
+        type = "toggle", width = "double",
+        order = 101,
         get = function()
             return module.db.profile.deficit_gradiant.ignore_self
         end,
@@ -33,9 +34,10 @@ module._opts = {
         end,
     },
     alwaysDisplay = {
-        type = "toggle", width = "double",
         name = "Always Display (requires UI reload)",
         desc = "Show status even when players are at full HP.",
+        type = "toggle", width = "double",
+        order = 100,
         get = function()
             return module.db.profile.deficit_gradiant.always_show
         end,
@@ -45,10 +47,10 @@ module._opts = {
         end,
     },
     color1 = {
-        order = 100,
         name = "Full health color",
         desc = "Use this color when a player is at full health.",
         type = "color",
+        order = 110,
         hasAlpha = true,
         get = function(t)
             local color = module.db.profile.deficit_gradiant.color_full_hp
@@ -60,10 +62,10 @@ module._opts = {
         end,
     },
     color2 = {
-        order = 101,
         name = "Threshold health color",
         desc = "Use this color when a player is at the health threshold.",
         type = "color",
+        order = 111,
         hasAlpha = true,
         get = function(t)
             local color = module.db.profile.deficit_gradiant.color_threshold_hp
@@ -75,10 +77,10 @@ module._opts = {
         end,
     },
     threshold_abs = {
-        order = 103,
-        type = "toggle", width = "double",
         name = "Use Percentage Threshold",
         desc = "Use  a percetnage for the threshold",
+        type = "toggle", width = "double",
+        order = 120,
         get = function()
             return module.db.profile.deficit_gradiant.percentage_threshold
         end,
@@ -88,10 +90,10 @@ module._opts = {
         end,
     },
     threshold = {
-        order = 105,
         name = "Threshold",
         desc = "The threshold at which to change the indicators color.",
         type = "input",
+        order = 121,
         get = function(t)
             return module.db.profile.deficit_gradiant.threshold_health
         end,
